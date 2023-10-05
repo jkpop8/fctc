@@ -20,10 +20,14 @@ class Model:
     
     
 	# find best_h
-	def fit(self, train_x, train_y, feat, label, fn, fold_no=0): 
+	def fit(self, train_x, train_y, feat, label, fn, fold_no=0, norm=True): 
 		#feat, label of validation set
 	  norm_x, self.mean, self.std = normX(train_x)
 	  norm_feat, mean, std = normX(feat, self.mean, self.std)
+      
+	  if not norm:
+	     norm_x = train_x
+	     norm_feat = feat
       
 	  fn2 = '{}_f{}_'.format(fn, fold_no)
 	  save_result = Save(fn2+'result.txt')
@@ -98,8 +102,10 @@ class Model:
 	  # print(cm)
 	  return acc, f1, predict
   
-	def predict(self, featMatrix, h=0, fs=None):
+	def predict(self, featMatrix, h=0, fs=None, norm=True):
 	  norm_feat, mean, std = normX(featMatrix, self.mean, self.std)
+	  if not norm:
+	     norm_feat = featMatrix
       
 	  if h==0: h = self.best_h
 	  predict_label, winners = self.fctc.predicts(norm_feat, h, fs)
