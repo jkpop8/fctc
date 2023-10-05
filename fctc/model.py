@@ -74,7 +74,7 @@ class Model:
       #save model parameters
 	  self.fctc.save(self.best_h, fn2) #za, la
 	  mean_std = [self.mean, self.std]
-	  np.savetxt(fn2+"norm.csv", mean_std, delimiter=",")	  
+	  np.savetxt(fn2+"model_norm.csv", mean_std, delimiter=",")	  
 
       #save extracted rule
 	  save_rule3 = Save(fn2+'rule3.txt')
@@ -108,10 +108,10 @@ class Model:
 
 	def load(self, fn, fold_no=0):
 	  fn2 = '{}_f{}_'.format(fn, fold_no)
-	  la= np.loadtxt(fn2+"la.csv", delimiter=",", dtype=int)
+	  la= np.loadtxt(fn2+"model_la.csv", delimiter=",", dtype=int)
 	  self.fctc = FCTC(yVector=la)
 	  self.fctc.load(fn2)
-	  mean_std = np.loadtxt(fn2+"norm.csv", delimiter=",", dtype=float)	  
+	  mean_std = np.loadtxt(fn2+"model_norm.csv", delimiter=",", dtype=float)	  
 	  self.mean = mean_std[0]
 	  self.std = mean_std[1]
 	  self.best_h = 1

@@ -154,12 +154,12 @@ class FCTC():
         la.append(self.u_class_label[i])
     
     if root:
-        np.savetxt(fn+"za.csv", za, delimiter=",")
-        np.savetxt(fn+"la.csv", la, delimiter=",", fmt="%d")
+        np.savetxt(fn+"model_za.csv", za, delimiter=",")
+        np.savetxt(fn+"model_la.csv", la, delimiter=",", fmt="%d")
 
   # save prototype za with label la to csv
   def load(self, fn):
-    za = np.loadtxt(fn+"za.csv", delimiter=",", dtype=float)
+    za = np.loadtxt(fn+"model_za.csv", delimiter=",", dtype=float)
     self.fcm.load(za) 
     self.u_class_label = self.y
     

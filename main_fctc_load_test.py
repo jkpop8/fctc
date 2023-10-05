@@ -16,15 +16,16 @@ data = load_iris()
 feat = data['data'] 
 label = data['target']
 
-#prepare result file for model training
+#prepare model file from training
 fn = "fctc_model/iris_all"
 fctc_model = model.Model()
-fctc_model.load(fn) 
+fctc_model.load(fn) #load(model_filename, fold_no=0)
 
 #example of model prediction
 predict_label, winners = fctc_model.predict(feat) #predict(test_feature)
-confmat = confusion_matrix(label, predict_label)
-print(confmat)
 
 a = np.array([label, predict_label, winners])
 print(a.transpose())
+
+confmat = confusion_matrix(label, predict_label)
+print(confmat)

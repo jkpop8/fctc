@@ -18,7 +18,7 @@ label = data['target']
 #prepare result file for model training
 fn = "fctc_model/iris_all"
 fctc_model = model.Model()
-#fit(train_feature, train_label, validation_feature, validation_label, result_filename)
+#fit(train_feature, train_label, validation_feature, validation_label, result_filename, fold_no=0)
 fctc_model.fit(feat, label, feat, label, fn) 
 
 #example of model prediction
