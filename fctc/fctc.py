@@ -121,12 +121,13 @@ class FCTC():
     uu, du_max = self.fcm.predict(xMatrix1Row, fs)
     winner = np.argmax(uu)
     label = self.u_class_label[winner]
+    umax = uu[winner]
     
     if self.level+1<height:
         if self.child[winner] is not None:
-            label, winner = self.child[winner].predict(xMatrix1Row, height, fs)
+            label, winner, umax = self.child[winner].predict(xMatrix1Row, height, fs)
 
-    return label, winner, uu[winner]
+    return label, winner, umax
 
   def predicts(self, xMatrix, height=0, fs=None): #x is matrix of all rows
     labels = []
@@ -137,8 +138,8 @@ class FCTC():
         labels.append(lb)
         winners.append(w)
         uwins.append(u)
-
-    return labels, winners, uwins
+    result = [arr.item() for arr in uwins]
+    return labels, winners, result
 
   # save prototype za with label la to csv
   def save(self, height, fn, za=None, la=None):
