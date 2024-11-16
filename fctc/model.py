@@ -108,9 +108,9 @@ class Model:
 	     norm_feat = featMatrix
       
 	  if h==0: h = self.best_h
-	  predict_label, winners = self.fctc.predicts(norm_feat, h, fs)
+	  predict_label, winners, uwins = self.fctc.predicts(norm_feat, h, fs)
       
-	  return predict_label, winners
+	  return predict_label, winners, uwins
 
 	def load(self, fn, fold_no=0):
 	  fn2 = '{}_f{}_'.format(fn, fold_no)
