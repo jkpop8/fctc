@@ -22,7 +22,7 @@ fctc_model = model.Model()
 fctc_model.fit(feat, label, feat, label, fn) 
 
 #example of model prediction
-predict_label, winners = fctc_model.predict(feat) #predict(test_feature, norm=True)
+predict_label, winners, confis = fctc_model.predict(feat) #predict(test_feature, norm=True)
 confmat = confusion_matrix(label, predict_label)
 print(confmat)
 
