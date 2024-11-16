@@ -22,9 +22,9 @@ fctc_model = model.Model()
 fctc_model.load(fn) #load(model_filename, fold_no=0)
 
 #example of model prediction
-predict_label, winners = fctc_model.predict(feat) #predict(test_feature, norm=True)
+predict_label, winners, confis = fctc_model.predict(feat) #predict(test_feature, norm=True)
 
-a = np.array([label, predict_label, winners])
+a = np.array([label, predict_label, winners, confis])
 print(a.transpose())
 
 confmat = confusion_matrix(label, predict_label)
