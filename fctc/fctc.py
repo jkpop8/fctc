@@ -126,17 +126,19 @@ class FCTC():
         if self.child[winner] is not None:
             label, winner = self.child[winner].predict(xMatrix1Row, height, fs)
 
-    return label, winner
+    return label, winner, uu[winner]
 
   def predicts(self, xMatrix, height=0, fs=None): #x is matrix of all rows
     labels = []
     winners = []
+    uwins = []
     for j in range(xMatrix.shape[0]):
-        lb, w = self.predict(xMatrix[j:j+1], height, fs)
+        lb, w, u = self.predict(xMatrix[j:j+1], height, fs)
         labels.append(lb)
         winners.append(w)
+        uwins.append(u)
 
-    return labels, winners
+    return labels, winners, uwins
 
   # save prototype za with label la to csv
   def save(self, height, fn, za=None, la=None):
