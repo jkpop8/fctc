@@ -24,7 +24,12 @@ fctc_model.load(fn) #load(model_filename, fold_no=0)
 #example of model prediction
 predict_label, winners, confis = fctc_model.predict(feat) #predict(test_feature, norm=True)
 
-a = np.array([label, predict_label, winners, confis])
+# Convert NumPy types to standard Python types for confis
+confidences = [
+    dict((int(k), float(v)) for k, v in d)
+    for d in confis
+]
+a = np.array([label, predict_label, winners, confidences], dtype=object)
 print(a.transpose())
 
 confmat = confusion_matrix(label, predict_label)
