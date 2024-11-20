@@ -121,7 +121,20 @@ class FCTC():
     uu, du_max = self.fcm.predict(xMatrix1Row, fs)
     winner = np.argmax(uu)
     label = self.u_class_label[winner]
-    umax = uu[winner]
+
+    umax = {} #confidence each class
+    # Iterate through each unique class label
+    for lb in np.unique(self.u_class_label):
+        # Mask uu values for the current class
+        class_mask = self.u_class_label == lb
+        umax[lb] = np.max(uu[class_mask])
+
+    class_labels = np.array(list(umax.keys()))
+    max_uu_values = np.array(list(umax.values()))
+    softmax_values = np.exp(max_uu_values) / np.sum(np.exp(max_uu_values))
+
+    # Map the softmax values back to their respective classes
+    umax = dict(zip(class_labels, softmax_values))
     
     if self.level+1<height:
         if self.child[winner] is not None:
@@ -138,7 +151,7 @@ class FCTC():
         labels.append(lb)
         winners.append(w)
         uwins.append(u)
-    result = [arr.item() for arr in uwins]
+    result = [arr.items() for arr in uwins]
     return labels, winners, result
 
   # save prototype za with label la to csv
