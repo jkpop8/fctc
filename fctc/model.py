@@ -90,7 +90,7 @@ class Model:
 	# find f1 after training
 	def validation(self, featMatrix, labelVector, h=0, fs=None):
 	  if h==0: h = self.best_h
-	  predict, w = self.fctc.predicts(featMatrix, h, fs)
+	  predict, w, uw = self.fctc.predicts(featMatrix, h, fs)
 
 	  acc = accuracy_score(labelVector, predict)	*100
 	  f1 = f1_score(labelVector, predict, average='weighted')	*100
